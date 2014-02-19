@@ -11,12 +11,22 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>CoreServlet</display-name>
-    <servlet-name>CoreServlet</servlet-name>
+    <display-name>coreServlet</display-name>
+    <servlet-name>coreServlet</servlet-name>
     <servlet-class>org.common.course.servlet.CoreServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CoreServlet</servlet-name>
-    <url-pattern>/CoreServlet</url-pattern>
+    <servlet-name>coreServlet</servlet-name>
+    <url-pattern>/coreServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>aaa</display-name>
+    <servlet-name>aaa</servlet-name>
+    <servlet-class>org.common.course.servlet.aaa</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>aaa</servlet-name>
+    <url-pattern>/aaa</url-pattern>
   </servlet-mapping>
 </web-app>
