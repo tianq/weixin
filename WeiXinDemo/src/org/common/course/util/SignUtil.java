@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * 请求校验工具类
  * 
- * @author liufeng
+ * @author tianqiang
  * @date 2013-05-18
  */
 public class SignUtil {
