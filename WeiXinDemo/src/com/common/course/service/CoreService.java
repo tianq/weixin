@@ -49,6 +49,10 @@ public class CoreService {
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
 				respContent = "您发送的是文本消息！";
+				//带有网页超链接的文本消息String a = "<a href="http://blog.csdn.net/lyq8479">柳峰的博客</a>"
+				//z这里由于存在”“双引号的问题，因此需要转义使用“\”.
+				String mess = "<a href=\"http://blog.csdn.net/lyq8479\">田强的博客</a>";
+//				String content = "如有问题，请点击<a href=\"http://blog.csdn.net/lyq8479\">此处</a>";
 			}
 			// 图片消息
 			else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
