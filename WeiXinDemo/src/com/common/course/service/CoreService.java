@@ -67,7 +67,7 @@ public class CoreService {
 				// 带有网页超链接的文本消息String a =
 				// "<a href="http://blog.csdn.net/lyq8479">柳峰的博客</a>"
 				// z这里由于存在”“双引号的问题，因此需要转义使用“\”.
-				String mess = "<a href=\"http://blog.csdn.net/lyq8479\">田强的博客</a>";
+				String mess = "<a href=\"http://www.weibo.com/smldydfy/home?topnav=1&wvr=5\">田强的微博</a>";
 				// String content =
 				// "如有问题，请点击<a href=\"http://blog.csdn.net/lyq8479\">此处</a>";
 
@@ -88,8 +88,10 @@ public class CoreService {
 					// textMessage.setContent("");
 					// ---------------用户发SoftBank版本emoji表情-----------------
 					// textMessage.setContent("");
+					
+					return MessageUtil.textMessageToXml(textMessage);
 				}
-				
+
 				// ================================图文消息代码===================================
 				if ("news".equals(MessageUtil.RESP_MESSAGE_TYPE_NEWS)) {
 
@@ -101,8 +103,7 @@ public class CoreService {
 					newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
 					newsMessage.setFuncFlag(0);
 
-					return respMessage = getPictureMessage(content,
-							newsMessage, respMessage);
+					return getPictureMessage(content, newsMessage, respMessage);
 				}
 
 				// =================================翻译实例==========================================
@@ -115,15 +116,16 @@ public class CoreService {
 						textMessage.setContent(BaiduTranslateService
 								.translate(keyWord));
 					}
+					return MessageUtil.textMessageToXml(textMessage);
 				}
-				
-				
-				//==================================获取音乐实例=========================================
+
+				// ==================================获取音乐实例=========================================
 				String musciContent = requestMap.get("Content").trim();
 				// 如果以“歌曲”2个字开头
 				if (musciContent.startsWith("歌曲")) {
 					// 将歌曲2个字及歌曲后面的+、空格、-等特殊符号去掉
-					String keyWord = musciContent.replaceAll("^歌曲[\\+ ~!@#%^-_=]?", "");
+					String keyWord = musciContent.replaceAll(
+							"^歌曲[\\+ ~!@#%^-_=]?", "");
 					// 如果歌曲名称为空
 					if ("".equals(keyWord)) {
 						respContent = getUsage();
@@ -137,7 +139,8 @@ public class CoreService {
 							musicAuthor = kwArr[1];
 
 						// 搜索音乐
-						Music music = BaiduMusicService.searchMusic(musicTitle, musicAuthor);
+						Music music = BaiduMusicService.searchMusic(musicTitle,
+								musicAuthor);
 						// 未搜索到音乐
 						if (null == music) {
 							respContent = "对不起，没有找到你想听的歌曲<" + musicTitle + ">。";
@@ -147,9 +150,11 @@ public class CoreService {
 							musicMessage.setToUserName(fromUserName);
 							musicMessage.setFromUserName(toUserName);
 							musicMessage.setCreateTime(new Date().getTime());
-							musicMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+							musicMessage
+									.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
 							musicMessage.setMusic(music);
-							respMessage = MessageUtil.musicMessageToXml(musicMessage);
+							respMessage = MessageUtil
+									.musicMessageToXml(musicMessage);
 						}
 					}
 					// 未搜索到音乐时返回使用指南
@@ -159,8 +164,8 @@ public class CoreService {
 						textMessage.setContent(respContent);
 						respMessage = MessageUtil.textMessageToXml(textMessage);
 					}
+					return respMessage;
 				}
-
 
 			}
 			// 图片消息
@@ -355,7 +360,7 @@ public class CoreService {
 		buffer.append("回复“?”显示主菜单");
 		return buffer.toString();
 	}
-	
+
 	/**
 	 * 歌曲点播使用指南
 	 * 
