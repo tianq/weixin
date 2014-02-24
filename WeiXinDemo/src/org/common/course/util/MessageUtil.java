@@ -3,6 +3,9 @@ package org.common.course.util;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -256,5 +259,30 @@ public class MessageUtil {
 			result = true;
 		}
 		return result;
+	}
+	
+	/**
+	 * 将微信消息中的CreateTime转换成标准格式的时间（yyyy-MM-dd HH:mm:ss）
+	 * 
+	 * @param createTime 消息创建时间
+	 * @return
+	 */
+	public static String formatTime(String createTime) {
+		// 将微信传入的CreateTime转换成long类型，再乘以1000
+		long msgCreateTime = Long.parseLong(createTime) * 1000L;
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return format.format(new Date(msgCreateTime));
+	}
+	
+	/**
+	 * emoji表情转换(hex -> utf-16)
+	 * 现在知道如何使用emoji表情代码了吧，其实就是将代码表中的U+替换为0x
+	 * 
+	 * @param hexEmoji
+	 * @return
+	 */
+	public static String emoji(int hexEmoji) {
+		//String bike = String.valueOf(Character.toChars(0x1F6B2));
+		return String.valueOf(Character.toChars(hexEmoji));
 	}
 }
